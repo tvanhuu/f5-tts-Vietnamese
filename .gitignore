@@ -1,0 +1,10 @@
+/data/your_dataset/
+/data/your_training_dataset/
+/data/your_training_dataset_non_preprocessed/
+/ckpts/your_training_dataset/
+/preprocess
+/f5tts-env
+__pycache__/
+*.pyc
+*.pyo
+/F5-TTS-Vietnamese/model_last.pt
