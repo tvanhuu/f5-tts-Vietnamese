@@ -244,12 +244,29 @@ def text_to_speech():
 
         if result["status"] == "completed":
             # Trả về file audio
-            return send_file(
-                result["output_path"],
-                mimetype="audio/wav",
-                as_attachment=True,
-                download_name=output_filename,
-            )
+            try:
+                response = send_file(
+                    result["output_path"],
+                    mimetype="audio/wav",
+                    as_attachment=True,
+                    download_name=output_filename,
+                )
+
+                # Xóa file sau khi gửi xong
+                try:
+                    os.remove(result["output_path"])
+                    print(f"   🗑️  Deleted temporary file: {result['output_path']}")
+                except Exception as e:
+                    print(f"   ⚠️  Failed to delete file: {e}")
+
+                return response
+            except Exception as e:
+                # Nếu lỗi khi gửi file, vẫn cố xóa file
+                try:
+                    os.remove(result["output_path"])
+                except:
+                    pass
+                raise e
         else:
             return jsonify({"error": result["error"]}), 500
 
@@ -298,6 +315,8 @@ def check_status(request_id):
 def text_to_speech_json():
     """
     API endpoint trả về thông tin JSON thay vì file
+    ⚠️  DEPRECATED: Endpoint này vẫn lưu file trên server
+    Khuyến nghị dùng /tts endpoint (tự động xóa file sau khi gửi)
 
     Response:
     {
@@ -346,6 +365,49 @@ def text_to_speech_json():
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/tts/download/<filename>", methods=["GET"])
+def download_file(filename):
+    """
+    Download file và tự động xóa sau khi gửi
+
+    Usage:
+        GET /tts/download/xxx.wav
+    """
+    try:
+        file_path = OUTPUT_DIR / filename
+
+        if not file_path.exists():
+            return jsonify({"error": "File not found"}), 404
+
+        # Gửi file và xóa sau khi gửi xong
+        try:
+            response = send_file(
+                file_path,
+                mimetype="audio/wav",
+                as_attachment=True,
+                download_name=filename,
+            )
+
+            # Xóa file sau khi gửi
+            try:
+                os.remove(file_path)
+                print(f"   🗑️  Deleted temporary file: {file_path}")
+            except Exception as e:
+                print(f"   ⚠️  Failed to delete file: {e}")
+
+            return response
+        except Exception as e:
+            # Nếu lỗi khi gửi file, vẫn cố xóa file
+            try:
+                os.remove(file_path)
+            except:
+                pass
+            raise e
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == "__main__":
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="F5-TTS API Server với Queue System")
@@ -362,13 +424,18 @@ if __name__ == "__main__":
     print("=" * 50)
     print("Endpoints:")
     print("  - GET  /health              : Kiểm tra server + stats")
-    print("  - POST /tts                 : Tạo audio (sync/async)")
+    print("  - POST /tts                 : Tạo audio (sync/async) ⭐ Tự động xóa file")
     print("  - GET  /tts/status/<id>     : Kiểm tra trạng thái request")
-    print("  - POST /tts/json            : Tạo audio (trả về JSON)")
+    print("  - GET  /tts/download/<file> : Download file và xóa")
+    print("  - POST /tts/json            : Tạo audio (trả về JSON, DEPRECATED)")
     print("\nQueue System:")
     print("  ✅ Hỗ trợ nhiều request đồng thời")
     print("  ✅ Xử lý tuần tự để tránh conflict")
     print("  ✅ Có thể dùng async mode để không chờ")
+    print("\nFile Management:")
+    print("  ✅ /tts endpoint: Tự động xóa file sau khi gửi")
+    print("  ✅ /tts/download: Xóa file sau khi download")
+    print("  ⚠️  /tts/json: Vẫn lưu file (deprecated)")
     print("=" * 50 + "\n")
 
     # Chạy server

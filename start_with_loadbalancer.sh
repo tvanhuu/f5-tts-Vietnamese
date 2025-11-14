@@ -7,7 +7,7 @@ echo "🚀 Starting F5-TTS Multi-Server with Load Balancer..."
 echo "============================================================"
 
 # Cấu hình
-NUM_SERVERS=3
+NUM_SERVERS=2
 START_PORT=5000
 LOAD_BALANCER_PORT=8080
 
