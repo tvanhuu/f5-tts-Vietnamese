@@ -12,9 +12,20 @@ import requests
 import itertools
 import argparse
 import time
+import sys
 from threading import Lock
+import logging
 
 app = Flask(__name__)
+
+# Tắt log mặc định của Flask và Werkzeug
+log = logging.getLogger("werkzeug")
+log.setLevel(logging.ERROR)  # Chỉ hiển thị errors
+
+# Tắt Flask development server warning
+import os
+
+os.environ["FLASK_ENV"] = "production"
 
 # ===== CẤU HÌNH =====
 # Danh sách các TTS servers backend
@@ -106,13 +117,13 @@ def tts():
         else request_data.get("text", "")
     )
 
-    print(f"\n{'='*60}")
-    print(f"🔀 LOAD BALANCER - Forwarding Request")
-    print(f"{'='*60}")
-    print(f"📝 Text: {text_preview}")
-    print(f"🎯 Target Server: {server}")
-    print(f"⏰ Time: {time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"{'='*60}\n")
+    print(f"\n{'='*60}", flush=True)
+    print(f"🔀 LOAD BALANCER - Forwarding Request", flush=True)
+    print(f"{'='*60}", flush=True)
+    print(f"📝 Text: {text_preview}", flush=True)
+    print(f"🎯 Target Server: {server}", flush=True)
+    print(f"⏰ Time: {time.strftime('%Y-%m-%d %H:%M:%S')}", flush=True)
+    print(f"{'='*60}\n", flush=True)
 
     request_start = time.time()
 
@@ -137,7 +148,8 @@ def tts():
             update_stats(server, success)
 
             print(
-                f"{'✅' if success else '❌'} Response from {server}: HTTP {resp.status_code} ({request_duration:.1f}s)\n"
+                f"{'✅' if success else '❌'} Response from {server}: HTTP {resp.status_code} ({request_duration:.1f}s)\n",
+                flush=True,
             )
 
             return jsonify(resp.json()), resp.status_code
@@ -148,7 +160,8 @@ def tts():
             update_stats(server, success)
 
             print(
-                f"✅ Response from {server}: HTTP {resp.status_code} ({request_duration:.1f}s, {file_size:.1f}MB)\n"
+                f"✅ Response from {server}: HTTP {resp.status_code} ({request_duration:.1f}s, {file_size:.1f}MB)\n",
+                flush=True,
             )
 
             return Response(
@@ -159,7 +172,10 @@ def tts():
 
     except Exception as e:
         request_duration = time.time() - request_start
-        print(f"❌ Error forwarding to {server}: {e} ({request_duration:.1f}s)\n")
+        print(
+            f"❌ Error forwarding to {server}: {e} ({request_duration:.1f}s)\n",
+            flush=True,
+        )
         update_stats(server, False)
         return (
             jsonify(
@@ -243,14 +259,19 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    print("\n" + "=" * 60)
-    print("🔀 F5-TTS LOAD BALANCER")
-    print("=" * 60)
-    print(f"🌐 Listening on: {args.host}:{args.port}")
-    print(f"🖥️  Backend servers: {len(BACKEND_SERVERS)}")
+    print("\n" + "=" * 60, flush=True)
+    print("🔀 F5-TTS LOAD BALANCER", flush=True)
+    print("=" * 60, flush=True)
+    print(f"🌐 Listening on: {args.host}:{args.port}", flush=True)
+    print(f"🖥️  Backend servers: {len(BACKEND_SERVERS)}", flush=True)
     for i, server in enumerate(BACKEND_SERVERS, 1):
-        print(f"   {i}. {server}")
-    print(f"🔄 Algorithm: Round-Robin")
-    print("=" * 60 + "\n")
+        print(f"   {i}. {server}", flush=True)
+    print(f"🔄 Algorithm: Round-Robin", flush=True)
+    print(f"📊 Log format: Mỗi request sẽ hiển thị node đang xử lý", flush=True)
+    print("=" * 60 + "\n", flush=True)
+    print("🚀 Load Balancer đã sẵn sàng! Đang chờ requests...\n", flush=True)
 
-    app.run(host=args.host, port=args.port, debug=False, threaded=True)
+    # Chạy Flask với log_level ERROR để tắt log mặc định
+    app.run(
+        host=args.host, port=args.port, debug=False, threaded=True, use_reloader=False
+    )

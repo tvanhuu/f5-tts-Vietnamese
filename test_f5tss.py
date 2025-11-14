@@ -27,8 +27,8 @@ print(f"🟢 Đang khởi tạo F5-TTS model...")
 # ====== Khởi tạo F5TTS ======
 f5tts = F5TTS(
     model="F5TTS_Base",
-    ckpt_file=ckpt_file,
-    vocab_file=vocab_file,
+    ckpt_file=CKPT_FILE,
+    vocab_file=VOCAB_FILE,
 )
 
 print(f"🟢 Model đã load xong, bắt đầu inference...")
