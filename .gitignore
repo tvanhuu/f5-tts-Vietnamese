@@ -7,5 +7,5 @@
 __pycache__/
 *.pyc
 *.pyo
-/F5-TTS-Vietnamese/model_last.pt
+/F5-TTS-Vietnamese
 /output_audio
