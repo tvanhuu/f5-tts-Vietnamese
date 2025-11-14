@@ -1,0 +1,50 @@
+/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/jieba/_compat.py:18: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+🟢 Đang khởi tạo F5-TTS model...
+Download Vocos from huggingface charactr/vocos-mel-24khz
+
+vocab :  /Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/config.json
+token :  custom
+model :  /Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt 
+
+⚠️ Weights-only load failed, retrying with full load... ([Errno 2] No such file or directory: '/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt')
+Traceback (most recent call last):
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/src/f5_tts/infer/utils_infer.py", line 203, in load_checkpoint
+    checkpoint = torch.load(ckpt_path, map_location=device, weights_only=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 1065, in load
+    with _open_file_like(f, 'rb') as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 468, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 449, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/api_server.py", line 53, in <module>
+    tts_model = F5TTS(
+                ^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/src/f5_tts/api.py", line 106, in __init__
+    self.ema_model = load_model(
+                     ^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/src/f5_tts/infer/utils_infer.py", line 273, in load_model
+    model = load_checkpoint(model, ckpt_path, device, dtype=dtype, use_ema=use_ema)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/src/f5_tts/infer/utils_infer.py", line 206, in load_checkpoint
+    checkpoint = torch.load(ckpt_path, map_location=device, weights_only=False)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 1065, in load
+    with _open_file_like(f, 'rb') as opened_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 468, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/f5tts-env/lib/python3.11/site-packages/torch/serialization.py", line 449, in __init__
+    super().__init__(open(name, mode))
+                     ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt'
