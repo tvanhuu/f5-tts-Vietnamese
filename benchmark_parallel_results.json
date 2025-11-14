@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "total_time": 234.0182900428772,
+      "num_workers": 1,
+      "total_requests": 10,
+      "successful": 10,
+      "failed": 0,
+      "avg_request_time": 23.40162718296051,
+      "min_request_time": 16.256075859069824,
+      "max_request_time": 30.801199913024902,
+      "throughput": 0.04273170271506464,
+      "time_per_request": 23.40182900428772
+    },
+    {
+      "total_time": 23.457966804504395,
+      "num_workers": 2,
+      "total_requests": 10,
+      "successful": 1,
+      "failed": 9,
+      "avg_request_time": 23.45692777633667,
+      "min_request_time": 23.45692777633667,
+      "max_request_time": 23.45692777633667,
+      "throughput": 0.042629440493878616,
+      "time_per_request": 23.457966804504395
+    },
+    {
+      "total_time": 18.463436126708984,
+      "num_workers": 3,
+      "total_requests": 10,
+      "successful": 1,
+      "failed": 9,
+      "avg_request_time": 18.462548971176147,
+      "min_request_time": 18.462548971176147,
+      "max_request_time": 18.462548971176147,
+      "throughput": 0.05416109943660011,
+      "time_per_request": 18.463436126708984
+    },
+    {
+      "total_time": 17.186954975128174,
+      "num_workers": 4,
+      "total_requests": 10,
+      "successful": 1,
+      "failed": 9,
+      "avg_request_time": 17.186296701431274,
+      "min_request_time": 17.186296701431274,
+      "max_request_time": 17.186296701431274,
+      "throughput": 0.05818366321708144,
+      "time_per_request": 17.186954975128174
+    }
+  ],
+  "best_config": {
+    "total_time": 17.186954975128174,
+    "num_workers": 4,
+    "total_requests": 10,
+    "successful": 1,
+    "failed": 9,
+    "avg_request_time": 17.186296701431274,
+    "min_request_time": 17.186296701431274,
+    "max_request_time": 17.186296701431274,
+    "throughput": 0.05818366321708144,
+    "time_per_request": 17.186954975128174
+  },
+  "timestamp": "2025-11-14 18:18:06"
+}

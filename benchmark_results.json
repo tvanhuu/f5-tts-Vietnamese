@@ -1,0 +1,40 @@
+{
+  "system_info": {
+    "platform": "macOS-26.0.1-arm64-arm-64bit",
+    "processor": "arm",
+    "machine": "arm64",
+    "python_version": "3.11.14",
+    "cpu": "Apple M1",
+    "ram_gb": "16.0 GB"
+  },
+  "results": {
+    "Câu ngắn (10-20 từ)": {
+      "min": 22.591225147247314,
+      "max": 23.39564800262451,
+      "mean": 22.821345853805543,
+      "median": 22.689927339553833,
+      "stdev": 0.3325070065637961,
+      "total_tests": 5,
+      "text_length": 54
+    },
+    "Câu trung bình (20-30 từ)": {
+      "min": 31.16898488998413,
+      "max": 32.41689586639404,
+      "mean": 31.64367914199829,
+      "median": 31.521403789520264,
+      "stdev": 0.47073136457157294,
+      "total_tests": 5,
+      "text_length": 98
+    },
+    "Câu dài (40+ từ)": {
+      "min": 51.54411697387695,
+      "max": 52.19260311126709,
+      "mean": 51.87226047515869,
+      "median": 51.79389810562134,
+      "stdev": 0.2531647371028024,
+      "total_tests": 5,
+      "text_length": 178
+    }
+  },
+  "timestamp": "2025-11-14 18:10:27"
+}
