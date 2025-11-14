@@ -10,16 +10,20 @@ from f5_tts.api import F5TTS
 ref_audio = "ref3.mp3"  # file audio tham chiếu
 ref_text = "hiệu quả là có thể khống chế đại tiện của mục tiêu"
 
-ckpt_file = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt"
-vocab_file = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/config.json"
+# Lấy đường dẫn thư mục hiện tại
+SCRIPT_DIR = Path(__file__).resolve().parent
+ckpt_file = SCRIPT_DIR / "F5-TTS-Vietnamese" / "model_last.pt"
+vocab_file = SCRIPT_DIR / "F5-TTS-Vietnamese" / "config.json"
 
 print(f"🟢 Đang khởi tạo F5-TTS model (CHỈ 1 LẦN)...")
+print(f"📂 Model checkpoint: {ckpt_file}")
+print(f"📂 Vocab file: {vocab_file}")
 
 # ====== Khởi tạo F5TTS 1 LẦN DUY NHẤT ======
 f5tts = F5TTS(
     model="F5TTS_Base",
-    ckpt_file=ckpt_file,
-    vocab_file=vocab_file,
+    ckpt_file=str(ckpt_file),
+    vocab_file=str(vocab_file),
 )
 
 print(f"✅ Model đã load xong!\n")

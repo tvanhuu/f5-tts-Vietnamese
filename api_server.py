@@ -44,10 +44,17 @@ stats = {
 # ====== KHỞI TẠO MODEL 1 LẦN KHI SERVER START ======
 print("🟢 Đang khởi tạo F5-TTS model...")
 
-CKPT_FILE = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt"
-VOCAB_FILE = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/config.json"
+# Lấy đường dẫn thư mục hiện tại (root của project)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Đường dẫn relative từ root
+CKPT_FILE = os.path.join(SCRIPT_DIR, "F5-TTS-Vietnamese", "model_last.pt")
+VOCAB_FILE = os.path.join(SCRIPT_DIR, "F5-TTS-Vietnamese", "config.json")
 DEFAULT_REF_AUDIO = "ref3.mp3"
 DEFAULT_REF_TEXT = "hiệu quả là có thể khống chế đại tiện của mục tiêu"
+
+print(f"📂 Model checkpoint: {CKPT_FILE}")
+print(f"📂 Vocab file: {VOCAB_FILE}")
 
 # Model global - khởi tạo 1 lần duy nhất
 tts_model = F5TTS(

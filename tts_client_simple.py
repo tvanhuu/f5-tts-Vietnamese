@@ -99,7 +99,9 @@ def save_checkpoint(checkpoint_file, completed):
 def main():
     # ===== CẤU HÌNH =====
     LOAD_BALANCER_URL = "http://10.0.67.77:8080"  # Địa chỉ Load Balancer
-    SRT_FILE = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/srt.srt"
+    # Lấy đường dẫn thư mục hiện tại
+    SCRIPT_DIR = Path(__file__).resolve().parent
+    SRT_FILE = SCRIPT_DIR / "srt.srt"
     OUTPUT_DIR = Path("output_audio")
     CHECKPOINT_FILE = OUTPUT_DIR / ".checkpoint.json"
     SPEED = 0.75

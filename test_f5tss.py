@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -15,8 +16,10 @@ gen_text = (
     "Bạn đang nghe giọng nói được huấn luyện từ dữ liệu tiếng Việt"  # text cần sinh
 )
 
-ckpt_file = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/model_last.pt"
-vocab_file = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/F5-TTS-Vietnamese/config.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+CKPT_FILE = os.path.join(SCRIPT_DIR, "F5-TTS-Vietnamese", "model_last.pt")
+VOCAB_FILE = os.path.join(SCRIPT_DIR, "F5-TTS-Vietnamese", "config.json")
 output_path = "output.wav"
 
 print(f"🟢 Đang khởi tạo F5-TTS model...")

@@ -146,7 +146,9 @@ def main():
     start_time = time.time()
 
     # Cấu hình
-    SRT_FILE = "/Users/tvan.huu/Desktop/F5-TTS-Vietnamese/srt.srt"
+    # Lấy đường dẫn thư mục hiện tại
+    SCRIPT_DIR = Path(__file__).resolve().parent
+    SRT_FILE = SCRIPT_DIR / "srt.srt"
     API_URL = "http://10.0.67.77:5000/tts"
     SPEED = 0.75
     OUTPUT_DIR = "output_audio"
