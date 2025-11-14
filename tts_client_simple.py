@@ -46,13 +46,13 @@ def parse_srt(srt_file_path):
 def call_tts_api(server_url, text, output_path, speed=1.0):
     """
     Gọi TTS API và lưu file audio
-    
+
     Args:
         server_url: URL của Load Balancer
         text: Text cần chuyển thành giọng nói
         output_path: Đường dẫn file output
         speed: Tốc độ đọc (0.5 - 2.0)
-    
+
     Returns:
         bool: True nếu thành công
     """
@@ -179,8 +179,10 @@ def main():
     print("=" * 60)
     print(f"✅ Thành công: {success_count}/{len(remaining)}")
     print(f"❌ Thất bại: {fail_count}/{len(remaining)}")
-    print(f"⏱️  Tổng thời gian: {overall_duration:.1f}s ({overall_duration/60:.1f} phút)")
-    
+    print(
+        f"⏱️  Tổng thời gian: {overall_duration:.1f}s ({overall_duration/60:.1f} phút)"
+    )
+
     # Tính dung lượng
     total_size = sum(f.stat().st_size for f in OUTPUT_DIR.glob("*.wav"))
     print(f"💾 Tổng dung lượng: {total_size / 1024 / 1024:.1f} MB")
@@ -189,4 +191,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
