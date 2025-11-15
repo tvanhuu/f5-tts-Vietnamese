@@ -9,3 +9,6 @@ __pycache__/
 *.pyo
 /F5-TTS-Vietnamese
 /output_audio
+/outputs
+/custom_output_*
+/logs
