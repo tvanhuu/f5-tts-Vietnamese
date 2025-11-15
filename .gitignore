@@ -12,3 +12,4 @@ __pycache__/
 /outputs
 /custom_output_*
 /logs
+*.str
